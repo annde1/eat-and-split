@@ -31,6 +31,7 @@ const App = () => {
   const handleSetFriend = (friend) => {
     setFriend((curr) => [...curr, friend]);
     setShowFriend(false);
+    selectedFriend(null);
   };
   const handleSelectFriend = (friend) => {
     setSelectedFriend((currSelected) =>

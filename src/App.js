@@ -40,7 +40,6 @@ const App = () => {
   }; //If the id of currently selected friend is the same as friend id then toggle the state bck to null, if it's the same set the state value to the friend
 
   const handleSplitBill = (value) => {
-    console.log(value);
     //if the id of friend is matching selected friend id then update his balance
     setFriend((curr) =>
       curr.map((friend) =>

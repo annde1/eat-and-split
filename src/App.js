@@ -21,7 +21,7 @@ const initialFriends = [
   },
 ];
 const App = () => {
-  const [friends, setFriend] = useState(initialFriends);
+  const [friends, setFriends] = useState(initialFriends);
   const [showAddFriend, setShowFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(null);
 
@@ -29,9 +29,8 @@ const App = () => {
     setShowFriend((curr) => !curr);
   };
   const handleSetFriend = (friend) => {
-    setFriend((curr) => [...curr, friend]);
+    setFriends((curr) => [...curr, friend]);
     setShowFriend(false);
-    selectedFriend(null);
   };
   const handleSelectFriend = (friend) => {
     setSelectedFriend((currSelected) =>
@@ -42,7 +41,7 @@ const App = () => {
 
   const handleSplitBill = (value) => {
     //if the id of friend is matching selected friend id then update his balance
-    setFriend((curr) =>
+    setFriends((curr) =>
       curr.map((friend) =>
         friend.id === selectedFriend.id
           ? { ...friend, balance: friend.balance + value }
@@ -69,6 +68,7 @@ const App = () => {
         <FormSplitBill
           selectedFriend={selectedFriend}
           onSplit={handleSplitBill}
+          key={selectedFriend.id}
         />
       )}
     </div>
@@ -89,10 +89,11 @@ const FriendsList = ({ friends, onSelect, selectedFriend }) => {
   );
 };
 const Friend = ({ friend, onSelect, selectedFriend }) => {
-  const isSelected = selectedFriend?.id === friend.id; //optional chaining, check if the id of current friend matches id of selected friend
+  // const isSelected = selectedFriend?.id === friend.id; //? why this not work
+  const isSelected = selectedFriend ? selectedFriend?.id === friend.id : false; //optional chaining, check if the id of current friend matches id of selected friend
 
   return (
-    <li className={isSelected ? "selected" : "open"}>
+    <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt={friend.name}></img>
       <h3>{friend.name}</h3>
       {friend.balance < 0 && (
